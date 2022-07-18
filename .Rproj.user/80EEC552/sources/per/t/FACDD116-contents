@@ -1,0 +1,222 @@
+---
+title: "regression_on_houseprice"
+output: pdf_document
+date: '2022-07-17'
+---
+
+
+## R Markdown
+
+```{r}
+library(tidyverse)
+```
+```{r}
+dataset <- read.csv("./data.csv") %>% na.omit
+```
+
+
+
+"City" is a categorical values and won't work with our multivariate linear
+regression. To amend this, I'm sorting cities in order of being the most "urban"
+(defined as having the most houses) to least urban. After which I assign each 
+city a number based on their ranking in the sort. City is then replaced with 
+this numeric "urbanness" variable. Other location variables like street, 
+statezip, or country are also removed. Date is useless and is removed.
+```{r}
+city_occurences <- as.data.frame(table(dataset$city)) %>% arrange(Freq)
+dataset$urbanness <- match(dataset$city, city_occurences$Var1)
+
+
+dataset <- dataset[,-which(colnames(dataset) %in% c("date", "street", 
+                                                    "statezip", 
+                                                    "city", "country"))]
+```
+
+
+I then plotted a histogram of all the variables to get a better "feel" of the 
+dataset and identify any variables that needs to be transformed.
+```{r}
+hist(
+  dataset$price,
+  main = "Histogram of price",
+  xlab = "price range"
+)
+hist(
+  dataset$bedrooms,
+  main = "Histogram of # of bedrooms",
+  xlab = "# of bedrooms range"
+)
+hist(
+  dataset$bathrooms,
+  main = "Histogram of # of bathrooms",
+  xlab = "# of bathrooms range"
+)
+hist(
+  dataset$sqft_living,
+  main = "Histogram of square foot of living",
+  xlab = "squre foot of living range"
+)
+hist(
+  dataset$sqft_lot,
+  main = "Histogram of square foot of lot",
+  xlab = "squre foot of lot range"
+)
+hist(
+  dataset$floors,
+  main = "Histogram of # of floors",
+  xlab = "# of floors range"
+)
+hist(
+  dataset$condition,
+  main = "Histogram of condition rating",
+  xlab = "condition rating range"
+)
+hist(
+  dataset$sqft_above,
+  main = "Histogram of square foot above",
+  xlab = "squre foot above range"
+)
+hist(
+  dataset$sqft_basement,
+  main = "Histogram of square foot of basement",
+  xlab = "squre foot of basement range"
+)
+hist(
+  dataset$yr_built,
+  main = "Histogram of year built",
+  xlab = "year built range"
+)
+hist(
+  dataset$yr_renovated,
+  main = "Histogram of year renovated",
+  xlab = "year renovated range"
+)
+hist(
+  sqrt(dataset$urbanness),
+  main = "Histogram of urbanness",
+  xlab = "urbanness range"
+)
+```
+Most of these seem to be reasonably distributed such that no transformations are 
+egregiously needed. However, two variables that stand out are the price and the
+condition
+
+For price, there are many houses in the 6 figure range, with exponentially fewer 
+and fewer houses as the price goes up. For this a log transform was applied. 
+Result is a much nicer bell-curve distribution of prices. 
+```{r}
+hist(
+  log(dataset$price),
+  main = "Histogram of log(price)",
+  xlab = "log(price) range"
+)
+```
+For condition, most houses sit at a rating of 3, 4, and 5, with very few houses 
+in the 1 and 2 range. A better representation of this data might be to combine 
+1 and 2 into one rating, representing "poor" quality houses.
+
+```{r}
+hist(
+  ifelse(dataset$condition < 3, 0, dataset$condition-2),
+  main = "Histogram of square foot above",
+  xlab = "squre foot above range"
+)
+```
+
+Also: the two most expensive houses and the least expensive house are weird 
+outliers and should be omitted. Indices are 4351, 4347, 4352.
+
+Further, there's houses with a price of 0 for some reason? Starting to think 
+this may not have been the best dataset
+```{r}
+dataset <- dataset[c(-4351, -4347, -4352)]
+dataset <- dataset %>% dplyr::filter(price > 0)
+```
+
+Now I examine their relationship with the log of price to see if there are any
+obvious trends that jump out right away. 
+```{r}
+plot(normalize(dataset$bedrooms), 
+     log(dataset$price))
+plot(normalize(dataset$bathrooms), 
+     log(dataset$price))
+plot(normalize(dataset$sqft_living), 
+     log(dataset$price))
+plot(normalize(dataset$sqft_basement), 
+     log(dataset$price))
+plot(normalize(dataset$sqft_lot), 
+     log(dataset$price))
+plot(normalize(dataset$sqft_above), 
+     log(dataset$price))
+plot(normalize(dataset$floors), 
+     log(dataset$price))
+plot(normalize(ifelse(dataset$condition < 3, 0, dataset$condition)), 
+     log(dataset$price))
+plot(normalize(dataset$yr_built), 
+     log(dataset$price))
+plot(normalize(dataset$urbanness), 
+     log(dataset$price))
+plot(normalize(dataset$waterfront), 
+     log(dataset$price))
+plot(normalize(dataset$view), 
+     log(dataset$price))
+```
+From these plots, it seems the most promising regression is square foot of 
+living space, # of bathrooms, and square foot above. For every other variable, 
+there is almost no variation in Y in response to variation in X. 
+
+
+Hence we move on to modeling the data with MLR using 
+-sqft_living
+-bathrooms
+-sqft_above
+as our predictor variables.
+
+We begin by normalizing the data for our model and including all other relevant 
+transformations.
+```{r}
+normalize <- function(x, ...) {
+    return((x - min(x, ...)) /(max(x, ...) - min(x, ...)))
+}
+
+model.data <- as.data.frame(apply(dataset, 2, normalize))
+model.data$price <- dataset$price
+model.data <- model.data %>% 
+  mutate(price = log(price),
+         ifelse(condition < 0.6, 0, condition-0.4),
+         bedrooms = -1*bedrooms*bedrooms)
+```
+
+We then subset the data into trainning/test sets. 
+```{r}
+model.data.train <- model.data[sample(nrow(model.data), 0.8*nrow(model.data)),]
+model.data.test <- model.data[sample(nrow(model.data), 0.2*nrow(model.data)),]
+```
+
+And now we model!
+```{r}
+model = lm(price~
+             bedrooms + bathrooms + 
+             sqft_living + floors + 
+             condition + sqft_above +
+             yr_built + urbanness +
+             waterfront + view,
+           data = model.data.train)
+
+summary(model)
+```
+Definitely not the most accurate linear regression in the world...I think this
+is close to the limitation of this hypothesis subspace and for a better 
+performance, I'd have to look into deep learning. There may be some 
+transformations that can help improve performance, but I think it is marginal at
+best.
+
+Predictions on test set
+```{r}
+predictions <- predict(model, model.data.test, interval = "confidence")
+realVpredictions <- data.frame("real price" = exp(model.data.test$price), 
+                                  "prediction:" = exp(predictions))
+head(realVpredictions)
+```
+
+

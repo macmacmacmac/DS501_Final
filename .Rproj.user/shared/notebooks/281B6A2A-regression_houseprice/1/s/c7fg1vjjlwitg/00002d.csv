@@ -1,0 +1,5 @@
+"0","hist("
+"0","  dataset$sqft_living,"
+"0","  main = ""Histogram of square foot of living"","
+"0","  xlab = ""squre foot of living range"""
+"0",")"

@@ -1,0 +1,5 @@
+"0","hist("
+"0","  dataset$yr_renovated,"
+"0","  main = ""Histogram of year renovated"","
+"0","  xlab = ""year renovated range"""
+"0",")"

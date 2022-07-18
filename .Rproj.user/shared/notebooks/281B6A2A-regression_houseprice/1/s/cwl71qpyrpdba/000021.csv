@@ -1,0 +1,2 @@
+"0","plot(normalize(dataset$urbanness), "
+"0","     log(dataset$price))"

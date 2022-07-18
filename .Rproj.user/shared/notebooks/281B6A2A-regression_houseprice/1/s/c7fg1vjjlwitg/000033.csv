@@ -1,0 +1,5 @@
+"0","hist("
+"0","  dataset$condition,"
+"0","  main = ""Histogram of condition rating"","
+"0","  xlab = ""condition rating range"""
+"0",")"

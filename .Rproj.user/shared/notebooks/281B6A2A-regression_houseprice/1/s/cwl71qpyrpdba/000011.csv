@@ -1,0 +1,2 @@
+"0","plot(normalize(dataset$bathrooms), "
+"0","     log(dataset$price))"

@@ -1,0 +1,5 @@
+"0","hist("
+"0","  dataset$bathrooms,"
+"0","  main = ""Histogram of # of bathrooms"","
+"0","  xlab = ""# of bathrooms range"""
+"0",")"

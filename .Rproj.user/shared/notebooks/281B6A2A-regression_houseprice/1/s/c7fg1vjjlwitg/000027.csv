@@ -1,0 +1,5 @@
+"0","hist("
+"0","  dataset$price,"
+"0","  main = ""Histogram of price"","
+"0","  xlab = ""price range"""
+"0",")"

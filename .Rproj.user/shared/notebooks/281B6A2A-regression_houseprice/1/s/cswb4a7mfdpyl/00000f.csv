@@ -1,0 +1,7 @@
+"0","city_occurences <- as.data.frame(table(dataset$city)) %>% arrange(Freq)"
+"0","dataset$urbanness <- match(dataset$city, city_occurences$Var1)"
+"0",""
+"0",""
+"0","dataset <- dataset[,-which(colnames(dataset) %in% c(""date"", ""street"", "
+"0","                                                    ""statezip"", "
+"0","                                                    ""city"", ""country""))]"

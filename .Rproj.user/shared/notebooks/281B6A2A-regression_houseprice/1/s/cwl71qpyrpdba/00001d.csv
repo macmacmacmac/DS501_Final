@@ -1,0 +1,2 @@
+"0","plot(normalize(ifelse(dataset$condition < 3, 0, dataset$condition)), "
+"0","     log(dataset$price))"

@@ -1,0 +1,2 @@
+"0","plot(normalize(dataset$waterfront), "
+"0","     log(dataset$price))"

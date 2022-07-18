@@ -1,0 +1,135 @@
+"0","dataset <- dataset[,2:14]"
+"0","dataset <- unlist(lapply("
+"0","  colnames(dataset),"
+"0","  minmax_norm"
+"0","))"
+"2","Warning in max(column_vector) :"
+"2","
+ "
+"2"," no non-missing arguments to max; returning -Inf
+"
+"2","Warning in min(column_vector) :"
+"2","
+ "
+"2"," no non-missing arguments to min; returning Inf
+"
+"2","Warning in max(column_vector) :"
+"2","
+ "
+"2"," no non-missing arguments to max; returning -Inf
+"
+"2","Warning in min(column_vector) :"
+"2","
+ "
+"2"," no non-missing arguments to min; returning Inf
+"
+"2","Warning in max(column_vector) :"
+"2","
+ "
+"2"," no non-missing arguments to max; returning -Inf
+"
+"2","Warning in min(column_vector) :"
+"2","
+ "
+"2"," no non-missing arguments to min; returning Inf
+"
+"2","Warning in max(column_vector) :"
+"2","
+ "
+"2"," no non-missing arguments to max; returning -Inf
+"
+"2","Warning in min(column_vector) :"
+"2","
+ "
+"2"," no non-missing arguments to min; returning Inf
+"
+"2","Warning in max(column_vector) :"
+"2","
+ "
+"2"," no non-missing arguments to max; returning -Inf
+"
+"2","Warning in min(column_vector) :"
+"2","
+ "
+"2"," no non-missing arguments to min; returning Inf
+"
+"2","Warning in max(column_vector) :"
+"2","
+ "
+"2"," no non-missing arguments to max; returning -Inf
+"
+"2","Warning in min(column_vector) :"
+"2","
+ "
+"2"," no non-missing arguments to min; returning Inf
+"
+"2","Warning in max(column_vector) :"
+"2","
+ "
+"2"," no non-missing arguments to max; returning -Inf
+"
+"2","Warning in min(column_vector) :"
+"2","
+ "
+"2"," no non-missing arguments to min; returning Inf
+"
+"2","Warning in max(column_vector) :"
+"2","
+ "
+"2"," no non-missing arguments to max; returning -Inf
+"
+"2","Warning in min(column_vector) :"
+"2","
+ "
+"2"," no non-missing arguments to min; returning Inf
+"
+"2","Warning in max(column_vector) :"
+"2","
+ "
+"2"," no non-missing arguments to max; returning -Inf
+"
+"2","Warning in min(column_vector) :"
+"2","
+ "
+"2"," no non-missing arguments to min; returning Inf
+"
+"2","Warning in max(column_vector) :"
+"2","
+ "
+"2"," no non-missing arguments to max; returning -Inf
+"
+"2","Warning in min(column_vector) :"
+"2","
+ "
+"2"," no non-missing arguments to min; returning Inf
+"
+"2","Warning in max(column_vector) :"
+"2","
+ "
+"2"," no non-missing arguments to max; returning -Inf
+"
+"2","Warning in min(column_vector) :"
+"2","
+ "
+"2"," no non-missing arguments to min; returning Inf
+"
+"2","Warning in max(column_vector) :"
+"2","
+ "
+"2"," no non-missing arguments to max; returning -Inf
+"
+"2","Warning in min(column_vector) :"
+"2","
+ "
+"2"," no non-missing arguments to min; returning Inf
+"
+"2","Warning in max(column_vector) :"
+"2","
+ "
+"2"," no non-missing arguments to max; returning -Inf
+"
+"2","Warning in min(column_vector) :"
+"2","
+ "
+"2"," no non-missing arguments to min; returning Inf
+"

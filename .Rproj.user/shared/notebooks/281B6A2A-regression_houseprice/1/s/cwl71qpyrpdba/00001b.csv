@@ -1,0 +1,2 @@
+"0","plot(normalize(dataset$floors), "
+"0","     log(dataset$price))"
