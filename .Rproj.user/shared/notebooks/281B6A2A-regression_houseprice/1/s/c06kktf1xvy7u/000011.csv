@@ -1,4 +1,0 @@
-"0","predictions <- predict(model, model.data.test, interval = ""confidence"")"
-"0","realVpredictions <- data.frame(""real price"" = exp(model.data.test$price), "
-"0","                                  ""prediction:"" = exp(predictions))"
-"0","head(realVpredictions)"

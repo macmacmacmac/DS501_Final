@@ -1,2 +1,0 @@
-"0","plot(normalize(dataset$view), "
-"0","     log(dataset$price))"

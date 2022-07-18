@@ -1,2 +1,0 @@
-"0","plot(normalize(dataset$sqft_basement), "
-"0","     log(dataset$price))"

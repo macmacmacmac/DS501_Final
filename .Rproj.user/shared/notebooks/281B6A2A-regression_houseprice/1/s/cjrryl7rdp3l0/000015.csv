@@ -1,2 +1,0 @@
-"0","model.data.train <- model.data[sample(nrow(model.data), 0.8*nrow(model.data)),]"
-"0","model.data.test <- model.data[sample(nrow(model.data), 0.2*nrow(model.data)),]"

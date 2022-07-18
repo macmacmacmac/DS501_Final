@@ -1,2 +1,0 @@
-"0","plot(normalize(dataset$yr_built), "
-"0","     log(dataset$price))"

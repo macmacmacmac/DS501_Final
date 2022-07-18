@@ -1,5 +1,0 @@
-"0","hist("
-"0","  ifelse(dataset$condition < 3, 0, dataset$condition-2),"
-"0","  main = ""Histogram of square foot above"","
-"0","  xlab = ""squre foot above range"""
-"0",")"
